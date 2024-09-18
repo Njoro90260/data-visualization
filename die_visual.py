@@ -10,7 +10,7 @@ die_3 = Die()
 # Make some rolls, and store results in a list.
 results = []
 for roll_num in range(1000):
-    result = die_1.roll() + die_2.roll() + die_3.roll()
+    result = die_1.roll() * die_2.roll() * die_3.roll()
     results.append(result)
 
 # Analyze the results.
@@ -28,4 +28,4 @@ x_axis_config = {'title': 'Result', 'dtick': 1}
 y_axis_config = {'title': 'Frequency of Result'}
 my_layout = Layout(title='Result of rolling three D6 Dice 1000 times',
                    xaxis=x_axis_config, yaxis=y_axis_config)
-offline.plot({'data':data, 'layout': my_layout}, filename='3_d6.html')
+offline.plot({'data':data, 'layout': my_layout}, filename='3_d6_multiply.html')
