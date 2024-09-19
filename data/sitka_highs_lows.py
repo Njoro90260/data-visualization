@@ -1,7 +1,7 @@
 import csv
 from datetime import datetime
 import matplotlib.pyplot as plt
-filename = 'data/sitka_weather_2018_simple.csv'
+filename = 'data/death_valley_2018_simple.csv'
 with open(filename, encoding='ISO-8859-1') as f:
     reader = csv.reader(f)
     header_row = next(reader)
@@ -14,8 +14,8 @@ with open(filename, encoding='ISO-8859-1') as f:
     for row in reader:
         try:
             current_date = datetime.strptime(row[2], '%Y-%m-%d')
-            high = int(row[5].strip().replace('"', ''))
-            low = int(row[6])
+            high = int(row[4].strip().replace('"', ''))
+            low = int(row[5])
             dates.append(current_date)
             highs.append(high)
             lows.append(low)
