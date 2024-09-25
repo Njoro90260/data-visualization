@@ -11,7 +11,7 @@ print(f"status code: {r.status_code}")
 
 # Process information about each submission.
 submission_ids = r.json()
-submission_dicts, hn_title, hn_comments = [], [], []
+submission_dicts, hn_links, hn_comments = [], [], []
 for submission_id in submission_ids[:30]:
     # Make a separate API call for each submission.
     url = f"https://hacker-news.firebaseio.com/v0/item/{submission_id}.json"
@@ -26,19 +26,24 @@ for submission_id in submission_ids[:30]:
         'comments': response_dict['descendants'],
     }
     # submission_dicts.append(submission_dict)
-    hn_title.append(response_dict['title'])
-    hn_comments.append(response_dict['descendants'])
+    hn_title = response_dict['title']
+    hn_url = f"http://news.ycombinator.com/item?id={submission_id}"
+
+    # Create HTML link
+    hn_link_html = f"<a href='{hn_url}' target='_blank'>{hn_title}</a>"
+    hn_links.append(hn_link_html)
+    hn_comments.append(response_dict.get('descendants', 0))
 
 def shorten_string(s, max_length=30):
     if len(s)> max_length:
         return s[:max_length].rstrip() + "..."
     return s
 
-short_hn_title = [shorten_string(item) for item in hn_title]
+short_hn_titles = [shorten_string(item) for item in hn_links]
 # Make a visualization.
 data = [{
     'type': 'bar',
-    'x': short_hn_title,
+    'x': short_hn_titles,
     'y': hn_comments,
     'marker': {
         'color': 'rgb(60, 100, 150)',
@@ -54,6 +59,8 @@ my_layout = {
         'title': 'news title',
         'titlefont': {'size': 24},
         'tickfont': {'size': 14},
+        'tickvals': list(range(len(short_hn_titles))),
+        'ticktext': short_hn_titles,
     },
     'yaxis': {
         'title': 'comments',
