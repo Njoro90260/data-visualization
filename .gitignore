@@ -1,4 +1,6 @@
 squares_plot.png
 __pycache__
-*pyc 
+*.pyc 
 env/
+*.html
+
