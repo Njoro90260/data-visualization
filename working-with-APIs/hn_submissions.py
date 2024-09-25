@@ -40,15 +40,25 @@ data = [{
     'type': 'bar',
     'x': short_hn_title,
     'y': hn_comments,
+    'marker': {
+        'color': 'rgb(60, 100, 150)',
+        'line': {'width': 1.5, 'color': 'rgb(25, 25, 25)'}
+    },
+    'opacity': 0.6,
 }]
 
 my_layout = {
     'title': 'Top commented news on hacker news.',
+    'titlefont': {'size': 28},
     'xaxis': {
-        'title': 'news title'
+        'title': 'news title',
+        'titlefont': {'size': 24},
+        'tickfont': {'size': 14},
     },
     'yaxis': {
-        'title': 'comments'
+        'title': 'comments',
+        'titlefont': {'size': 24},
+        'tickfont': {'size': 14},
     }
 }
 fig = {'data': data, 'layout': my_layout}
